@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block title %} My Blog {% endblock %}
+{% block content %}
+<h1>My Blog</h1>
+{% for post in posts %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+    <h2>
+        <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+    </h2>
+    <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+    {{ post.body|truncatewords:30|linebreaks }}
 
-<body>
-    {% for post in posts %}
-    <ul>
-        <li><a href="#">{{post.title}}</a></li>
-        <li>{{post.body}}</li>
-        <li>{{post.author}}</li>
-    </ul>
-    {%  endfor %}
-</body>
+{% endfor %}
 
-</html>
+{% endblock %}

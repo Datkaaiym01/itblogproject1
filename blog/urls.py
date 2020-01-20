@@ -8,3 +8,5 @@ urlpatterns = [
     post_detail, name='post_detail'),
     
 ]
+
+# http://test/1997/08/07/firstproject/
