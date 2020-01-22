@@ -8,7 +8,9 @@
     <p>{{post.body}}</p>
     <p>{{post.created}}</p>
     <p>{{post.updated}}</p>
-
+    <p>
+    <a href="{% url 'blog:post_share' post.id %}">Поделиться постом</a>
+    </p>
 </div>
 {% endblock content %}
 
