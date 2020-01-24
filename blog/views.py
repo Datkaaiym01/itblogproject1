@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from blog.models import Post
+from blog.models import Post, Comment
 from django.views.generic import ListView
-from blog.forms import EmailPostForm
+from blog.forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Function Based View
@@ -37,8 +38,27 @@ def post_detail(request, year, month, day, post):
         publish__year=year, publish__month=month, 
         publish__day=day
     )
+    comments = post.comments.filter(active=True) 
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            user = User.objects.get(pk=request.user.pk)
+            print(user)
+            new_comment.author = user
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     return render(
-        request, 'blog/post_detail.html', {'post': post}
+        request, 'blog/post_detail.html', {
+            'post': post, 'comments': comments,
+            'new_comment': new_comment, 
+            'comment_form': comment_form
+
+            }
     )
 
 def post_share(request, post_id):
