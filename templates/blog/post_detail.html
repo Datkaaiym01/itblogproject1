@@ -42,5 +42,13 @@
     <p><input type="submit" value="Add comment"></p>
 </form> {% endif %}
 
+       <p>Вам рекомендуют прочитать:</p>
+    {% for similar_post in similar_posts %}
+        <ul>
+        <li><a href="{{ similar_post.get_absolute_url }}">{{ similar_post }}</a></li>
+        </ul>
+    {% endfor %}
 
+
+    
 {% endblock content %}

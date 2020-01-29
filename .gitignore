@@ -3,3 +3,12 @@ __pycache__/*
 env/*
 db.sqlite3
 __pycache__
+
+blog/__pycache__/views.cpython-38.pyc
+.idea/blogproject.iml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+
