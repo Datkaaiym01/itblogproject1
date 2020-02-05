@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from taggit.models import Tag
 from django.db.models import Count
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Function Based View
@@ -13,10 +14,14 @@ def post_list(request, pk=None):
     object_list = Post.published.all()
     tag = None
     # print(tag_slug)
-    print(request.GET.get('query'))
+    query = request.GET.get('query')
     if pk:
         tag = get_object_or_404(Tag, pk=pk)
         object_list = object_list.filter(tags__in=[tag])
+    if query:
+        object_list = Post.published.filter(
+            Q(title__icontains=query) | Q(body__icontains=query),
+        )
     # print(tag_slug)
     paginator = Paginator(object_list, 3)
     page = request.GET.get('page')
