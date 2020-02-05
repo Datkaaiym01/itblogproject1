@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load blog_tags %}
 {% block title %}{{post.title}}{% endblock %}
 {% block content %}
 <div class="container">
     <h2>{{post.author}}</h2>
 
     <h1>{{post.title}}</h1>
-    <p>{{post.body}}</p>
+    <p>{{post.body|markdown}}</p>
     <p>{{post.created}}</p>
     <p>{{post.updated}}</p>
     <p>

@@ -13,6 +13,7 @@ def post_list(request, pk=None):
     object_list = Post.published.all()
     tag = None
     # print(tag_slug)
+    print(request.GET.get('query'))
     if pk:
         tag = get_object_or_404(Tag, pk=pk)
         object_list = object_list.filter(tags__in=[tag])

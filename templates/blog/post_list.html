@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load blog_tags %}
 {% block title %} My Blog {% endblock %}
 {% block content %}
 
@@ -21,9 +22,9 @@
       {{post.id}}
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{post.title}}</h5>
+      <h5 class="card-title">{{post.title|truncatewords:3}}</h5>
       <p class="tags">Tags: {{ post.tags.all|join:", " }}</p>
-      <p class="card-text">{{ post.body|truncatewords:30|linebreaks }}</p>
+      <p class="card-text">{{ post.body|markdown|truncatewords:30|linebreaks }}</p>
       <a href="{{post.get_absolute_url}}" class="btn btn-primary">Перейти</a>
     </div>
     <div class="card-footer text-muted">
